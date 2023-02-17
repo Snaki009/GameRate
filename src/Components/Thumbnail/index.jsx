@@ -1,16 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import ChatIcon from '@mui/icons-material/Chat';
-import { Icon } from '@mui/material';
+import { Divider, Icon } from '@mui/material';
 import { styled as styledMui } from '@mui/system';
+import { useNavigate } from 'react-router';
 
 
 const Thumbnail = ({data}) => {
+    const navigate = useNavigate()
+
     return (
-        <Container>
+        <Container onClick={() => navigate(`/GameRate/article/${data.id}`)}>
             <MainImg src={data.mainImg} />
             <Details>
                 <Title>{data.title}</Title>
+                <Divider variant="middle" />
                 <Row>
                     <Date>{data.date}</Date>
                     <Comments> {data.commentsCount}<IconStyled component={ChatIcon} /></Comments>
