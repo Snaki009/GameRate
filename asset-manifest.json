@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/GameRate/static/css/main.073c9b0a.css",
-    "main.js": "/GameRate/static/js/main.f3e5e8d7.js",
+    "main.css": "/GameRate/static/css/main.e6c13ad2.css",
+    "main.js": "/GameRate/static/js/main.6a348a16.js",
     "static/js/787.fb9973eb.chunk.js": "/GameRate/static/js/787.fb9973eb.chunk.js",
-    "static/media/logo.svg": "/GameRate/static/media/logo.3326bf9aeea70fe32c2fa93c52dae88f.svg",
     "index.html": "/GameRate/index.html",
-    "main.073c9b0a.css.map": "/GameRate/static/css/main.073c9b0a.css.map",
-    "main.f3e5e8d7.js.map": "/GameRate/static/js/main.f3e5e8d7.js.map",
+    "main.e6c13ad2.css.map": "/GameRate/static/css/main.e6c13ad2.css.map",
+    "main.6a348a16.js.map": "/GameRate/static/js/main.6a348a16.js.map",
     "787.fb9973eb.chunk.js.map": "/GameRate/static/js/787.fb9973eb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.f3e5e8d7.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.6a348a16.js"
   ]
 }
