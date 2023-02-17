@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router'
 import Navbar from '../Navigation'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import styled from 'styled-components';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
@@ -31,7 +32,9 @@ const Layout = () => {
             <ThemeProvider theme={theme}>
                 <div>
                     <Navbar />
-                    <Outlet />
+                    <Content>
+                        <Outlet />
+                    </Content>
                 </div>
             </ThemeProvider>
         </ColorModeContext.Provider >
@@ -39,3 +42,7 @@ const Layout = () => {
 }
 
 export default Layout
+
+const Content = styled.div`
+    padding: 50px 20%;
+`
