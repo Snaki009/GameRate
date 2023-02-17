@@ -9,11 +9,11 @@ import HomePage from '../Pages/Home'
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/GameRate',
         element: <Layout />,
         children: [
             {
-                path: '/',
+                path: '/GameRate',
                 element: <HomePage />
             },
             {

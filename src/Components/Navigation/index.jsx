@@ -35,7 +35,7 @@ function NavBar() {
   };
 
   const handleCloseNavMenu = (page) => {
-    navigate(`/${page}`)
+    navigate(`/GameRate/${page}`)
     setAnchorElNav(null);
   };
 
@@ -51,7 +51,7 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/GameRate"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
