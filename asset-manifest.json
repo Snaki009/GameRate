@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/GameRaet/static/css/main.073c9b0a.css",
+    "main.js": "/GameRaet/static/js/main.0bbfb3c9.js",
+    "static/js/787.fb9973eb.chunk.js": "/GameRaet/static/js/787.fb9973eb.chunk.js",
+    "static/media/logo.svg": "/GameRaet/static/media/logo.3326bf9aeea70fe32c2fa93c52dae88f.svg",
+    "index.html": "/GameRaet/index.html",
+    "main.073c9b0a.css.map": "/GameRaet/static/css/main.073c9b0a.css.map",
+    "main.0bbfb3c9.js.map": "/GameRaet/static/js/main.0bbfb3c9.js.map",
+    "787.fb9973eb.chunk.js.map": "/GameRaet/static/js/787.fb9973eb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.0bbfb3c9.js"
+  ]
+}
