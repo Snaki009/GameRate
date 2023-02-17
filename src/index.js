@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Layout from './Components/Layout'
 import reportWebVitals from './reportWebVitals'
 import Router from './Routing'
 import './index.css'
