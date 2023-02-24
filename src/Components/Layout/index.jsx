@@ -3,8 +3,7 @@ import { Outlet } from 'react-router'
 import Navbar from '../Navigation'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import styled from 'styled-components'
-import { GlobalStyles } from '@mui/material'
+import { Box, GlobalStyles } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
@@ -54,9 +53,15 @@ const Layout = () => {
                 />
                 <div>
                     <Navbar />
-                    <Content>
+                    <Box
+                        sx={{
+                            padding: {
+                                sx: '0px 0 0 0',
+                                md: '50px 20%;'
+                            }
+                        }}>
                         <Outlet />
-                    </Content>
+                    </Box>
                 </div>
             </ThemeProvider>
         </ColorModeContext.Provider >
@@ -64,7 +69,3 @@ const Layout = () => {
 }
 
 export default Layout
-
-const Content = styled.div`
-    padding: 50px 20%;
-`

@@ -13,9 +13,10 @@ const BlockPage = () => {
         apiClient.login({
             email,
             password,
-        }).then(response => 
-            localStorage.setItem('token', response.data.tokens.access)
-        )
+        }).then(response => {
+            localStorage.setItem('token', response.data.tokens.access);
+            window.location.reload();
+        })
     }
 
     return (
