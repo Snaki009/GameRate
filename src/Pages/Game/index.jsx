@@ -3,6 +3,7 @@ import React from 'react'
 // import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Comment from '../../Components/Comment';
+import AddComment from '../../Components/Comment/AddComment';
 import Section from '../../Components/Layout/Section';
 
 const mockGame = {
@@ -22,9 +23,9 @@ const commentsMock = [{
     id: 1,
     author: {
         username: 'Snaki',
-        profileIMG: ''
+        profileImg: ''
     },
-    content: 'Dupa',
+    content: 'Fajna gierka polecam',
     timestamp: 0,
     rating: 2,
 },
@@ -32,9 +33,9 @@ const commentsMock = [{
     id: 2,
     author: {
         username: 'Snaki',
-        profileIMG: ''
+        profileImg: ''
     },
-    content: 'Dupa2',
+    content: 'Albo już nie polecam',
     timestamp: 0,
     rating: 3,
 }
@@ -64,6 +65,7 @@ const Game = () => {
 
             <Section header="Komentarze">
                 <CommentSection>
+                    <AddComment/>
                     {commentsMock.map((comment) => 
                         <Comment data={comment}/>
                     )}
@@ -93,5 +95,7 @@ const Card = styled.div`
 `
 
 const CommentSection = styled.div`
-    
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 `

@@ -1,66 +1,58 @@
 import React from 'react'
 import styled from 'styled-components'
-import ChatIcon from '@mui/icons-material/Chat';
-import { Divider, Icon } from '@mui/material';
-import { styled as styledMui } from '@mui/system';
-import { useNavigate } from 'react-router';
-
+import AnonImg from '../../Assets/anon.png'
+import { styled as styled2 } from '@mui/system';
+import ActionBar from './ActionBar';
 
 const Comment = ({ data }) => {
-    const navigate = useNavigate()
-
     return (
         <Container>
-            {data.content}
+            <Row>
+                <ProfileTag>
+                    <StyledImg src={data.author.profileImg || AnonImg} alt="StyledImg" />
+                    {data.author.username}
+                </ProfileTag>
+                <Content>
+                    <div>
+                        {data.content}
+                    </div>
+                    <ActionBar />
+                </Content>
+            </Row>
         </Container>
     )
 }
 
 export default Comment
 
-const IconStyled = styledMui(Icon)({
-    height: '17px',
+const StyledImg = styled.img`
+    height: 70px;
+`
 
-});
+const ProfileTag = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const Content = styled2('div')(() => ({
+    backgroundColor: 'white',
+    flexGrow: 1,
+    width: '100%',
+    margin: '0 10px',
+    padding: '5px',
+    display: 'flex',
+    flexDirection: 'column'
+}));
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column; 
-    justify-content: space-between;
-    margin: 5px;
-    background-color: white;
+    flex-grow: 1;
+    margin-bottom: 10px;
 `
+
 const Row = styled.div`
     display: flex;
     justify-content: space-between;
-`
-
-const MainImg = styled.img`
-    width: 100%;
-`
-
-const Details = styled.div`
-    padding: 5px;
-`
-
-const Title = styled.div`
-    font-weight: 500;
-    margin-bottom: 5px;
-`
-
-const Date = styled.div`
-    display: inline-block;
-    color: gray;
-`
-
-const Comments = styled.div`
-    display: inline-block;
-    white-space: break-spaces;
-`
-const Short = styled.div`
-    
-`
-const Author = styled.div`
-    text-align: end;
-    color: gray;
+    padding: 10px;
+    flex-grow: 1;
 `
