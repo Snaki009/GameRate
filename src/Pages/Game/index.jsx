@@ -1,7 +1,9 @@
 import { Grid } from '@mui/material';
 import React from 'react'
-import { useParams } from 'react-router';
+// import { useParams } from 'react-router';
 import styled from 'styled-components';
+import Comment from '../../Components/Comment';
+import Section from '../../Components/Layout/Section';
 
 const mockGame = {
     id: 1,
@@ -16,8 +18,30 @@ Experience Hogwarts in the 1800s.Your character is a student who holds the key t
 Discover the feeling of living at Hogwarts as you make allies, battle Dark wizards, and ultimately decide the fate of the wizarding world.Your legacy is what you make of it`
 }
 
+const commentsMock = [{
+    id: 1,
+    author: {
+        username: 'Snaki',
+        profileIMG: ''
+    },
+    content: 'Dupa',
+    timestamp: 0,
+    rating: 2,
+},
+{
+    id: 2,
+    author: {
+        username: 'Snaki',
+        profileIMG: ''
+    },
+    content: 'Dupa2',
+    timestamp: 0,
+    rating: 3,
+}
+]
+
 const Game = () => {
-    const params = useParams()
+    // const params = useParams()
     
     return (
         <div>
@@ -37,6 +61,14 @@ const Game = () => {
                 </Grid>
                 </Grid>
             </Card>
+
+            <Section header="Komentarze">
+                <CommentSection>
+                    {commentsMock.map((comment) => 
+                        <Comment data={comment}/>
+                    )}
+                </CommentSection>
+            </Section>
         </div>
     )
 }
@@ -58,4 +90,8 @@ const MainImg = styled.img`
 const Card = styled.div`
     background-color: #fafafa;
     box-shadow: 0px 0px 35px -10px rgba(0,0,0,0.15);
+`
+
+const CommentSection = styled.div`
+    
 `

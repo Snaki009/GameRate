@@ -6,27 +6,17 @@ import { styled as styledMui } from '@mui/system';
 import { useNavigate } from 'react-router';
 
 
-const Thumbnail = ({data}) => {
+const Comment = ({ data }) => {
     const navigate = useNavigate()
 
     return (
-        <Container onClick={() => navigate(`/article/${data.id}`)}>
-            <MainImg src={data.mainImg} />
-            <Details>
-                <Title>{data.title}</Title>
-                <Divider variant="middle" />
-                <Row>
-                    <Date>{data.date}</Date>
-                    <Comments> {data.commentsCount}<IconStyled component={ChatIcon} /></Comments>
-                </Row>
-                <Short>{data.short}</Short>
-                <Author>{data.author}</Author>
-            </Details>
+        <Container>
+            {data.content}
         </Container>
     )
 }
 
-export default Thumbnail
+export default Comment
 
 const IconStyled = styledMui(Icon)({
     height: '17px',

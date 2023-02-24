@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import ChatIcon from '@mui/icons-material/Chat';
 
 
 const GameThumbnail = ({ data }) => {

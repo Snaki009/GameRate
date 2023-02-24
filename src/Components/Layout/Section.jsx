@@ -1,6 +1,7 @@
 import { Divider } from '@mui/material'
 import React from 'react'
 import styled from 'styled-components'
+import { styled as styled2 } from '@mui/system';
 
 const Section = ({ header, children }) => {
     return (
@@ -19,13 +20,14 @@ const Section = ({ header, children }) => {
 
 export default Section
 
-const SectionBlock = styled.div`
-    background-color: #efefef;
-    padding: 15px;
-    border-left: 2px solid #1976d2;
-    border-radius: 10px;
-    margin-bottom: 25px;
-`
+const SectionBlock = styled2('div')(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
+    padding: '15px',
+    borderLeft: '2px solid #1976d2',
+    bordeRadius: '10px',
+    marginBottom: '25px'
+}));
+
 const Header = styled.h2`
     
 `
