@@ -2,10 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-const ActionBar = (id) => {
+const ActionBar = ({id, rating}) => {
     return (
         <Container>
-            Odpowiedz
+            <div>
+                {rating || '-'}/5
+            </div>
+            <div>
+                Odpowiedz
+            </div>
         </Container>
     )
 }
@@ -18,4 +23,7 @@ const Container = styled.div`
     align-self: flex-end;    
     display: flex;
     align-items: flex-end;
+    width: 100%;
+    justify-content: space-between;
+    
 `

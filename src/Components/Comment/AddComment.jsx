@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Box, Button, TextField } from '@mui/material';
 import { styled as styledMui } from '@mui/system';
 import AnonImg from '../../Assets/anon.png'
+import { Icon } from '@mui/material';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { ApiClient } from '../../API/httpService'
+
+const apiClient = new ApiClient()
 
 
-const AddComment = ({ data }) => {
+const AddComment = ({ id, addComment }) => {
+    const [content, setContent] = useState('');
+    const user = {
+        username: 'You [wip]',
+    }
+
+    const addNewLine = () => {
+        setContent(content + '\n')
+        document.getElementById("comment-input").focus();
+    }
+
+    const submitComment = () => {
+        apiClient.postComment( 15, content,
+        ).then(response => {
+            addComment(response.data)
+            setContent('')
+        })
+    }
+
+
+    if(!user) return; 
+
     return (
         <Container>
             <Row>
                 <ProfileTag sx={{display:{ xs: 'none', md: 'flex'}}}>
                     <StyledImg 
-                        src={data?.author.profileImg || AnonImg} 
+                        src={user.profileImg || AnonImg} 
                         alt="StyledImg" 
                     />
-                    {data?.author.username || 'user'}
+                    {user.username || 'user'}
                 </ProfileTag>
                 <Content
                     sx={{
@@ -25,12 +51,24 @@ const AddComment = ({ data }) => {
                     }}>
                     <TextField 
                         sx={{flexGrow: 1}}
-                        id="standard-basic" 
+                        id="comment-input" 
                         placeholder="Komentuj..."
-                        multiline variant="standard" />
-                    <AddButton variant="outlined">
-                        Dodaj
-                    </AddButton>
+                        multiline variant="standard" 
+                        value={content}
+                        onChange={e => setContent(e.target.value)}    
+                    />
+                    <AddGroup>
+                        <AddButton 
+                            variant="outlined"
+                            onClick={submitComment}
+                        >
+                            Dodaj
+                        </AddButton>
+                        <StyledIcon 
+                            component={KeyboardReturnIcon} 
+                            onClick={addNewLine}
+                        />
+                    </AddGroup>
                 </Content>
             </Row>
         </Container>
@@ -54,12 +92,17 @@ const Content = styledMui(Box)(() => ({
 }))
 
 const AddButton = styledMui(Button)(() => ({
-    alignSelf: 'flex-end',
+}))
+const StyledIcon = styledMui(Icon)(() => ({
+    height: '36px',
+    marginLeft: '15px',
+}))
+
+const AddGroup = styledMui('div')(() => ({
     display: 'flex',
     alignItems: 'flex-end',
     maxWidth: '150px',
     marginTop: '5px',
-    marginLeft: '5px',
 }))
 
 const Container = styled.div`

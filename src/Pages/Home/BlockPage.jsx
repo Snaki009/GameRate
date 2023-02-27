@@ -14,7 +14,7 @@ const BlockPage = () => {
             email,
             password,
         }).then(response => {
-            localStorage.setItem('token', response.data.tokens.access);
+            localStorage.setItem('token', response.data.tokens.access.token);
             window.location.reload();
         })
     }

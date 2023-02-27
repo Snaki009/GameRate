@@ -1,10 +1,13 @@
 import { Grid } from '@mui/material';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 // import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Comment from '../../Components/Comment';
 import AddComment from '../../Components/Comment/AddComment';
 import Section from '../../Components/Layout/Section';
+import { ApiClient } from '../../API/httpService'
+
+const apiClient = new ApiClient()
 
 const mockGame = {
     id: 1,
@@ -19,35 +22,27 @@ Experience Hogwarts in the 1800s.Your character is a student who holds the key t
 Discover the feeling of living at Hogwarts as you make allies, battle Dark wizards, and ultimately decide the fate of the wizarding world.Your legacy is what you make of it`
 }
 
-const commentsMock = [{
-    id: 1,
-    author: {
-        username: 'Snaki',
-        profileImg: ''
-    },
-    content: 'Fajna gierka polecam',
-    timestamp: 0,
-    rating: 2,
-},
-{
-    id: 2,
-    author: {
-        username: 'Snaki',
-        profileImg: ''
-    },
-    content: 'Albo już nie polecam',
-    timestamp: 0,
-    rating: 3,
-}
-]
+
 
 const Game = () => {
     // const params = useParams()
+    const [comments, setComments] = useState([])
+    const appendComment = (response) => {
+        const tempComm = comments 
+        comments.unshift({...response})
+        setComments([...tempComm])
+    }
+
+    useEffect(() => {
+        apiClient.getComments(15).then(response => {
+            console.log(response)
+            setComments(response.data.results)
+        })
+    }, [])
     
     return (
         <div>
             <Card>
-                
             <Grid container spacing={0}>
                 <Grid item xs={6} md={6}>
                     <Grid container >
@@ -65,10 +60,15 @@ const Game = () => {
 
             <Section header="Komentarze">
                 <CommentSection>
-                    <AddComment/>
-                    {commentsMock.map((comment) => 
-                        <Comment data={comment}/>
-                    )}
+                    <AddComment
+                        addComment={appendComment}
+                        id={mockGame.id}
+                    />
+                    {!!comments.length ? comments.map((comment) => 
+                        <Comment 
+                            data={comment} 
+                        /> 
+                    ) : 'No comments yet'}
                 </CommentSection>
             </Section>
         </div>

@@ -9,14 +9,14 @@ const Comment = ({ data }) => {
         <Container>
             <Row>
                 <ProfileTag>
-                    <StyledImg src={data.author.profileImg || AnonImg} alt="StyledImg" />
-                    {data.author.username}
+                    <StyledImg src={data.author?.profileImg || AnonImg} alt="StyledImg" />
+                    {data.author?.username}
                 </ProfileTag>
                 <Content>
                     <div>
                         {data.content}
                     </div>
-                    <ActionBar />
+                    <ActionBar rating={data?.rating}/>
                 </Content>
             </Row>
         </Container>
