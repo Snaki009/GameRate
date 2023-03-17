@@ -25,7 +25,8 @@ import { styled as styled2 } from '@mui/system';
 const pages = [
     'Reviews', 
     'Games', 
-    'Blog'
+    'Blog',
+    'Collection',
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

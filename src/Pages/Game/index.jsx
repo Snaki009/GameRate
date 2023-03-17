@@ -1,6 +1,6 @@
-import { Grid } from '@mui/material';
+import { Grid, MenuItem, Rating, Select, Stack, TextField } from '@mui/material';
 import React, {useEffect, useState} from 'react'
-// import { useParams } from 'react-router';
+import { useParams } from 'react-router';
 import styled from 'styled-components';
 import Comment from '../../Components/Comment';
 import AddComment from '../../Components/Comment/AddComment';
@@ -9,24 +9,18 @@ import { ApiClient } from '../../API/httpService'
 
 const apiClient = new ApiClient()
 
-const mockGame = {
-    id: 1,
-    name: "Hogwart's Legacy",
-    coverImg: 'https://image.api.playstation.com/vulcan/ap/rnd/202208/0921/dR9KJAKDW2izPbptHQbh3rnj.png',
-    developer: ['Avalanche Software', 'Portkey Games'],
-    publisher: 'Warner Bros. Interactive Entertainment',
-    score: '8.4',
-    platforms: ['ps4, ps5, pc, xone, xsx'],
-    description: `LIVE THE UNWRITTEN - Hogwarts Legacy is an immersive, open-world action RPG set in the world first introduced in the Harry Potter books. Now you can take control of the action and be at the center of your own adventure in the wizarding world. Embark on a journey through familiar and new locations as you explore and discover fantastic beasts, customize your character and craft potions, master spell casting, upgrade talents, and become the wizard you want to be.
-Experience Hogwarts in the 1800s.Your character is a student who holds the key to an ancient secret that threatens to tear the wizarding world apart.You have received a late acceptance to the Hogwarts School of Witchcraft and Wizardry and soon discover that you are no ordinary student: you possess an unusual ability to perceive and master Ancient Magic.Only you can decide if you will protect this secret for the good of all, or yield to the temptation of more sinister magic.
-Discover the feeling of living at Hogwarts as you make allies, battle Dark wizards, and ultimately decide the fate of the wizarding world.Your legacy is what you make of it`
-}
-
-
-
 const Game = () => {
-    // const params = useParams()
+    const gameId = useParams().id
+    const [gameData, setGameData] = useState()
+
     const [comments, setComments] = useState([])
+
+
+    const [userRating, setUserRating] = useState()
+    const [played, setPlayed] = useState(0)
+    const [owned, setOwned] = useState(0)
+    const [ratingDetails, setRatingDetails] = useState()
+
     const appendComment = (response) => {
         const tempComm = comments 
         comments.unshift({...response})
@@ -34,35 +28,136 @@ const Game = () => {
     }
 
     useEffect(() => {
-        apiClient.getComments(15).then(response => {
-            console.log(response)
+        apiClient.getGame(gameId).then(response => {
+            setGameData(response.data)
+        })
+        apiClient.getOwnRating(gameId).then(response => {
+            const {rating, description, ownStatus, playedStatus} = response.data
+        
+            setUserRating(rating || 0)
+            setRatingDetails(description)
+            setOwned(ownStatus || 0)
+            setPlayed(playedStatus || 0)
+        })
+        apiClient.getComments(gameId).then(response => {
             setComments(response.data.results)
         })
-    }, [])
+    }, [gameId])
+
+    const handleRatingChange = (event) => {
+        setUserRating(event.target.value)
+        apiClient.postRating(gameId, { rating: event.target.value })
+    }
+
+    const handleDescriptionChange = (event) => {
+        setRatingDetails(event.target.value)
+        apiClient.postRating(gameId, { description: event.target.value })
+    }
+
+    const handleOwnedChange = (event) => {
+        setOwned(event.target.value)
+        apiClient.postRating(gameId, { ownStatus: event.target.value })
+    }
+
+    const handlePlayedChange = (event) => {
+        setPlayed(event.target.value)
+        apiClient.postRating(gameId, { playedStatus: event.target.value })
+    }
     
     return (
         <div>
-            <Card>
+            {gameData && <Card>
             <Grid container spacing={0}>
                 <Grid item xs={6} md={6}>
                     <Grid container >
-                        <Grid item>
-                            <Header>{mockGame.name}</Header>
+                        <Grid item md={12}>
+                            <Header>{gameData.name}</Header>
+                        </Grid>
+                        <Grid item md={11}>
+                                <div>{gameData.platforms.toString()}</div>
+                        </Grid>
+                        <Grid item md={6}>
+                                Developer: <div>{gameData.developer.toString()}</div>
+                        </Grid>
+                        <Grid item md={6}>
+                                Publisher: <div>{gameData.publisher.toString()}</div>
+                        </Grid>
+                        <Grid item md={12}>
+                                <div>{gameData.description}</div>
+                        </Grid>
+                        <Grid item md={12}>
+                                <div>Review score: {gameData.score?.reviewer}</div>
+                        </Grid>
+                        <Grid item md={12}>
+                                <div>User score: {gameData.score?.user}</div>
+                        </Grid>
+                        <Grid item md={12}>
+                                <div>Selection score: {gameData.score?.selection}</div>
+                        </Grid>
+                        <Grid item md={12}>
+                             <div>Your rating: 
+                                <Stack spacing={1}>
+                                    <Rating 
+                                        name="rating"
+                                        precision={0.5} 
+                                        value={userRating || 0}
+                                        onChange={handleRatingChange}
+                                    />
+                                </Stack>
+                                <TextField value={ratingDetails} onChange={handleDescriptionChange}/>
+                                </div>
+                        </Grid>
+                        <Grid item md={12}>
+                                <div>Collection Status:</div>
+                                <Select
+                                    labelId="owned-select"
+                                    id="demo-simple-select-standard"
+                                    value={owned}
+                                    onChange={handleOwnedChange}
+                                    label="Owned Status"
+                                >
+                                    <MenuItem value={0}>
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={1}>Owned</MenuItem>
+                                    <MenuItem value={2}>Digital</MenuItem>
+                                    <MenuItem value={3}>Want to buy</MenuItem>
+                                    <MenuItem value={4}>Preordered</MenuItem>
+                                    <MenuItem value={5}>Not Owned</MenuItem>
+                                </Select>
+                                <Select
+                                    labelId="status-select"
+                                    id="demo-simple-select-standard"
+                                    value={played}
+                                    onChange={handlePlayedChange}
+                                    label="Played Status"
+                                >
+                                    <MenuItem value={0}>
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={1}>100%</MenuItem>
+                                    <MenuItem value={2}>Completed</MenuItem>
+                                    <MenuItem value={3}>Dropped</MenuItem>
+                                    <MenuItem value={4}>Started</MenuItem>
+                                    <MenuItem value={5}>On-hold</MenuItem>
+                                    <MenuItem value={6}>Want to play</MenuItem>
+                                    <MenuItem value={7}>Not interested</MenuItem>
+                                </Select>
                         </Grid>
 
                     </Grid>
                 </Grid>
                 <Grid item xs={6} md={6} padding={0}>
-                    <MainImg src={mockGame.coverImg} />
+                    <MainImg src={gameData.coverImg} />
                 </Grid>
                 </Grid>
-            </Card>
+            </Card>}
 
             <Section header="Komentarze">
                 <CommentSection>
                     <AddComment
                         addComment={appendComment}
-                        id={mockGame.id}
+                        id={gameId}
                     />
                     {!!comments.length ? comments.map((comment) => 
                         <Comment 

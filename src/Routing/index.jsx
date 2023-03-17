@@ -9,6 +9,8 @@ import HomePage from '../Pages/Home'
 import BlockPage from '../Pages/Home/BlockPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../Store/Actions/UserActions'
+import Games from '../Pages/Games'
+import Collection from '../Pages/Collection'
 
 const router = createBrowserRouter([
     {
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'games',
-                element: <Game />
+                element: <Games />
             },
             {
                 path: 'blog',
@@ -36,20 +38,24 @@ const router = createBrowserRouter([
                 element: <div>blog</div>
             },
             {
-                path: 'profile/:id/',
+                path: 'profile/:id',
                 element: <div>blog</div>
             },
             {
-                path: 'game/:id/',
+                path: 'game/:id',
                 element: <Game />
             },
             {
-                path: 'article/:id/',
+                path: 'article/:id',
                 element: <Game />
             },
             {
-                path: 'review/:id/',
+                path: 'review/:id',
                 element: <Game />
+            },
+            {
+                path: 'collection',
+                element: <Collection />
             }
         ],
     },

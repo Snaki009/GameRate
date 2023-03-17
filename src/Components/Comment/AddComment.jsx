@@ -22,7 +22,7 @@ const AddComment = ({ id, addComment }) => {
     }
 
     const submitComment = () => {
-        apiClient.postComment( 15, content,
+        apiClient.postComment(id, content,
         ).then(response => {
             addComment(response.data)
             setContent('')
